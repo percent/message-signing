@@ -1,0 +1,11 @@
+{
+  "name": "percent-message-signing",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "author": "",
+  "license": "ISC"
+}
