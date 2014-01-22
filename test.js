@@ -5,26 +5,33 @@ var sign = require('./.');
 
 testWith(randomSmallText, 100);
 testWith(randomBigText, 100);
+testWith(randomObject, 100);
 
 console.log('Oll Korrect');
 
-function testWith(textGeneratorFn, times) {
+function testWith(messageGenFn, times) {
   for (var i=0; i<times; ++i) {
-    var text = textGeneratorFn();
+    var message = messageGenFn();
+    var differentMessage = messageGenFn();
     var key = randomSmallText();
 
+    var signature = sign(key, message);
+
     assert.equal(
-        sign(key, text),
-        sign(key, text),
+        signature,
+        sign(key, message),
         'Signature should not vary');
 
     assert.notEqual(
-        sign(key, text),
-        sign(key, changeRandomly(text)),
-        'Signature should hange with different text');
+        signature,
+        sign(key, differentMessage),
+        'Signature should change for a different message');
+
+    assert(sign(key, message, signature),
+        'sign() should validate when given a signature');
   }
 
-  console.log('Tested with %s %d times.', textGeneratorFn.name, times);
+  console.log('Tested with %s %d times.', messageGenFn.name, times);
 }
 
 function randomSmallText() {
@@ -39,27 +46,19 @@ function randomBigText() {
   return all.join('');
 }
 
-function changeRandomly(text) {
+function randomObject() {
+  var obj = {}, times = 5;
+  while (times--) obj[randomSmallText()] = randomSmallText();
 
-  var times = Math.min(text.length / 2, 5);
-  var result = text;
+  obj[randomSmallText()] = null;
 
-  while (times--)
-    result = changeOneChar(result);
+  obj[randomSmallText()] = undefined;
 
-  return result;
+  obj[randomSmallText()] = [randomSmallText(), randomSmallText()];
 
-  function changeOneChar(text) {
-    var randomIdx = Math.floor(text.length * Math.random());
-    var char = text.charAt(randomIdx);
-    var newChar = randomChar();
-    var newText = text.replace(char, newChar);
-    return newText;
-  }
+  var nested = {}; nested[randomSmallText()] = randomSmallText();
+  obj[randomSmallText()] = nested;
 
-  function randomChar() {
-    var randomText = randomSmallText();
-    return randomText[Math.floor(Math.random() * randomText.length)];
-  }
+  return obj;
 }
 
