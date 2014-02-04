@@ -1,4 +1,5 @@
 var crypto = require('crypto');
+var assert = require('assert');
 
 module.exports = sign;
 
@@ -6,6 +7,8 @@ var algorithm = 'sha512';
 var encoding = 'base64';
 
 function sign(key, message, claimed) {
+  assert(key, 'need a key');
+  assert(message, 'need a message');
 
   var parts = [];
 
