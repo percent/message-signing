@@ -1,11 +1,22 @@
 {
   "name": "percent-message-signing",
   "version": "0.0.0",
-  "description": "",
+  "description": "sign and verify messages exchanged with percent",
   "main": "index.js",
   "scripts": {
     "test": "node test"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/percent/message-signing.git"
+  },
+  "keywords": [
+    "percent"
+  ],
+  "bugs": {
+    "url": "https://github.com/percent/message-signing/issues"
+  },
+  "homepage": "https://github.com/percent/message-signing"
 }
