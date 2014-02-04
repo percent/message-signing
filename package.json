@@ -1,6 +1,6 @@
 {
   "name": "percent-message-signing",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "sign and verify messages exchanged with percent",
   "main": "index.js",
   "scripts": {
